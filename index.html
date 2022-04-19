@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Debugging Kit</title>
+	<link rel="stylesheet" href="https://unpkg.com/@kfonts/neodgm/index.css">
+	<style type="text/css">
+		html{font-family: "Neo둥근모", "neodgm";}
+		*{box-sizing: border-box;}
+		body,nav,section{margin: 0; background: black;}
+		div{width:1000px; margin: auto; }
+		section{background: black; margin: auto; padding-top: 50px; padding-bottom: 50px;}
+		p{word-break: keep-all; }
+		h2{color: black; font-size: 30pt; line-height: 1.3;}
+		.d1{width: 100%;  padding: 0; overflow: hidden; position: relative;}
+		video{width: 100%; min-width: 2000px; }
+
+		.s1{padding-top: 0;}
+		.title{color: white; position: absolute; top: 500px; left: 50%; width:600px; 
+				transform: translate(-50%, -50%);
+				background-color: #ffffff; background-color: rgba(0, 0, 0, 0.8); 
+				padding: 0; text-align: center; font-size: 40pt; border: solid 1px #00ff00;
+				animation: glow 1s ease-in-out infinite alternate;}
+
+		.titlebug{position: absolute;  top: 500px; left: 50%; width:600px; 
+				transform: translate(-67%, -50%);}
+
+
+
+
+@keyframes glow
+{from {text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00, 0 0 60px #00ff00, 0 0 70px #00ff00;}
+  to {text-shadow: 0 0 20px #fff, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00, 0 0 60px #00ff00, 0 0 70px #00ff00, 0 0 80px #00ff00;
+  }}
+
+
+
+
+		.s2{margin-bottom: 400px; padding-top: 200px; }
+		.d2{line-height: 2.5; padding: 80px; border: solid 1px #00ff00; color: #00ff00; font-size: 14pt; position: relative;}
+		.oops{color: white; position: absolute; top: 230px; left: 50%; width:200px; 
+				transform: translate(-50%, -50%); 
+				background-color: #ffffff; background-color: rgba(0, 0, 0, 0.8); 
+				padding: 0; margin: 0;text-align: center; font-size: 28pt; border: solid 1px #00ff00;}
+		.danger1,.danger2,.danger3,.danger4{position: absolute; width: 230px; animation:blink 1s infinite; }
+		.alert1,.alert2,.alert3,.alert4{position: absolute; width: 130px;animation:blink 1s infinite; }
+		.danger1{left:-200px; top: 100px;} 
+		.danger2{left:900px; top: 300px;}
+		.danger3{left:800px; top: 900px;}
+		.danger4{left:100px ; top: 800px;}
+		.alert1{left:300px; top: -100px;}
+		.alert2{left:800px; top: 400px;}
+		.alert3{left:-150px; top: 700px;}
+		.alert4{left:600px; top: 1200px;}
+
+
+		@keyframes blink{0%, 20%, 40%, to { opacity: 1; } 10%, 30% { opacity: 0; }}
+		@keyframes flicker {0%, 18%, 22%, 25%, 53%, 57%, 100% {opacity: 1;  transform: translate(0px); } 20%, 24%, 55% {opacity: 0; transform: translate(40px);}}
+		@keyframes flicker2 {0%, 18%, 22%, 25%, 53%, 57%, 100% {opacity: 1;  transform: translate(0px); } 20%, 24%, 55% {opacity: 0; transform: translate(-40px);}}
+
+
+		@keyframes blur{0% {filter: blur(0);} 50%{filter: blur(4px);} 100%{filter: blur(0);}}
+
+  
+
+
+
+		.s3{background: url('glitch2.gif');background-color: #00ff00; background-blend-mode: multiply; background-size: 100% auto; background-attachment:fixed; }
+		.d3{width:1200px; background-color: rgba(0, 0, 0, 0.8); border: solid 1px #00ff00;
+			color: white; text-align: center; padding: 0; margin-top: 150px; margin-bottom: 150px; }
+
+
+		.ft{position: absolute;color: #00ff00; width: 100%; z-index: 10; font-size: 30pt; animation:blur 2.5s infinite;}
+
+	
+
+		.s4{margin-top: 350px; position: relative;}
+		.d4-1,.d4-2,.d4-3{width: 1200px;display: flex; gap: 150px; margin-bottom: 180px;color: #00ff00; font-size: 14pt;}
+		.d4-2{flex-direction: row-reverse;}
+		.d4-4{margin-top: 200px; margin-bottom: 200px; text-align: center;color: #00ff00;  font-size: 20pt; line-height: 2; color: white;}
+		.bug1{margin: 0; width: 500px;animation:flicker 1.5s infinite;}
+		.bug2,.bug3{margin: 0; width: 580px;animation:flicker 1.5s infinite;}
+		.bug2{animation:flicker2 1s infinite;}
+		.bc4-1,.bc4-2,.bc4-3{line-height: 1.7; width: 350px; margin: 0;}
+
+		
+
+		.closeuplist{display: flex; margin: auto; justify-content: center; gap: 50px}
+		.closeup1,.closeup2,.closeup3,.closeup4{width: 500px;}
+		.closeup1:hover{transform: scale(1.4); transition: .3s;}
+		.closeup2:hover{transform: scale(1.4);transition: .3s;}
+		.closeup3:hover{transform: scale(1.4);transition: .3s;}
+		.closeup4:hover{transform: scale(1.4);transition: .3s;}
+
+		
+		
+		.s5{background: url('glitch.gif');background-color: #00ff00; background-blend-mode: multiply; background-size: 100% auto; background-attachment:fixed;}
+		.d5{width:1300px; background-color: rgba(0, 0, 0, 0.8); border: solid 1px #00ff00;
+			color: #00ff00; text-align: center; padding: 100px; margin-top: 150px; margin-bottom: 150px; text-align: center; font-size: 16pt; line-height: 2;}
+
+
+		.s6{margin-top: 250px;}
+		.d6-1,.d6-2{width: 1100px; color: #00ff00; font-size: 16pt;line-height: 2; margin-bottom: 250px;}
+		h4{color: white;  font-size: 30pt; margin: 0;}
+		.d6-1 p{margin: 0;} .d6-2 p{margin: 0;}
+
+		.bc6-1{width: 1100px;display: flex; color: #00ff00; flex-wrap: wrap; justify-content: space-between; margin-top: 50px;} 
+		.kit1,.kit2,.kit3{ margin: 0; width: 300px; display: block;}
+		.kit1-c,.kit2-c,.kit3-c{width: 300px; margin: 0;}
+		 .kit1-c p{margin-top: 20px;}
+		 .kit2-c p{margin-top: 20px;}
+		 .kit3-c p{margin-top: 20px;}
+		h5{color: white; font-size: 20pt; margin: 0; }
+
+		.d6-2{display: flex;}
+		.bc6-2{width: 700px;  color: #00ff00; margin: 0;}
+		.cesco{width: 400px; margin: 0; margin-top: 20px;}
+
+		.d6-3{ margin: auto; padding: 0; text-align: center; }
+		.bc6-3{  display: flex;  gap:50px; margin: 0; padding: 0; text-align: center;}
+		.r1,.r2,.r3,.r4,.r5,.r6{ color: #00ff00;
+				background-color: #ffffff; background-color: rgba(0, 0, 0, 0.8); 
+				 padding: 20px; margin-top: 150px; margin-bottom: 150px; 0;text-align: center; font-size: 16pt; border: solid 1px #00ff00;}
+		
+
+
+
+
+
+		.s7{background: url('map.png'); background-attachment: fixed;}
+		.d7{width:1200px; background-color: rgba(0, 0, 0, 0.8); border: solid 1px #00ff00;
+			color: #00ff00; text-align: center; padding: 70px; margin-top: 150px; margin-bottom: 150px; font-size: 30pt;}
+		.d7 p{margin: 0; margin-bottom: 0px;}
+
+
+		.s8
+		.d8{ font-size: 22pt;  padding: 130px; color: white; text-align: center;  }
+
+
+
+
+nav{width: 100%;
+	height: 44px;
+			z-index: 1;
+			position: fixed;
+			background-color: #000000;
+			background-color: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(5px);
+			display: flex;}
+
+ul{width: 600px; height: 44px; padding: 0; margin:0; margin-left: auto; display: flex;}
+li{list-style-type: none; width: 20%;height: 44px; text-align:center; line-height: 44px; margin-left: auto;}
+ 
+li a{color: #00ff00; }
+.logo{height: 44px; line-height: 44px; width: 200px;float: left; text-align: center; color: #00ff00; margin: 0;}
+
+
+
+
+	</style>
+</head>
+
+<nav>
+<div class="logo">Debugging Kit</div>
+<ul>
+	<li><a href="#1">Intro</a></li>
+	<li><a href="#2">Bug</a></li>
+	<li><a href="#3">Kit</a></li>
+	<li><a href="#4">End</a></li>
+</ul>
+</nav>
+
+<body>
+	<section class="s1">
+		<div class="d1">
+     	 <video muted autoplay loop>
+        <source src="matrix.mp4">
+        <strong>Your browser does not support the video tag.</strong>
+     	 </video>
+     	</div>
+
+     	<div class="titlebug" >
+			<img src="titlebug.png" style="width: 800px;">
+		</div>
+
+		<div class="title" >
+			<h1> > Hello Bug</h1>
+		</div>
+	</section>
+
+
+
+	<section class="s2">
+		
+		<div class="d2"id="1">
+			<p class="oops">OOPS!</p>
+			<img src="danger.png" class="danger1">
+			<img src="danger.png" class="danger2">
+			<img src="danger.png" class="danger3">
+			<img src="danger.png" class="danger4">
+			<img src="alert.png" class="alert1">
+			<img src="alert.png" class="alert2">
+			<img src="alert.png" class="alert3">
+			<img src="alert.png" class="alert4">
+
+
+			<img src="earth.gif" style="display: block; margin: auto; margin-bottom: 100px; width: 300px;">
+			<p>> 유저여러분, 만나서 반갑습니다.</p>
+			<p>> 여러분이 살고있는 지구 2.1서버는 우주의 탄생 이후 현재에 이르기까지  유일하게 유지되었던 만큼 그 안전성을 자랑했었습니다.</p>
+			<p>> 그러나 이 평화로운 지구서버에도 위험이 도사리기 사작했습니다.</p>
+			<p>> 최근에 여러분들이 겪고있는 원인불명의, 말로 설명할 수 없는 문제상황들을 겪으신 적이 단 한번이라도 있었나요?</p>
+			<p>> 그렇다면 주목해주세요.</p>
+			<p>> 이 모든건</p>
+			<p>.</p>
+			<p>.</p>
+			<p>.</p>
+			<p>>> <span style="color:white;">버그</span> 떄문이니까요.
+			</p>
+		</div>
+	</section>
+
+
+
+
+	<section class="s3" id="2">
+		<div class="d3">
+			<p style="color: white; font-size: 40pt;">"네, 이런상황도 다 버그 때문입니다."</p>
+		</div>
+	</section>
+
+
+
+
+	<section class="s4">
+		<div class="ft">
+			<marquee scrollamount="50"><p style="font-size: 15pt;">분?큙@? 명</p></marquee>
+			<marquee scrollamount="45"><p>꽂았  꽂았?는쳎?? 데</p></marquee>
+			<marquee scrollamount="40" direction="right"><p>?$|좋`</p></marquee>
+			<marquee scrollamount="60"><p style="font-size:18pt;">물리?엔 진ㅈ</p></marquee>
+			<marquee scrollamount="50"><p style="color: white;">?지eY? 구2?0</p></marquee>
+			<marquee scrollamount="35"direction="right"><p>US뱉??B빍i;?</p></marquee>
+
+			<marquee scrollamount="25"><p >안 ?x흐르</p></marquee>
+			<marquee scrollamount="50"><p style="font-size: 15pt;">뼌?휾?/p></marquee>
+			<marquee scrollamount="45"><p style="font-size:15pt;">흐릏ㅂ?? 지</p></marquee>
+			<marquee scrollamount="40" direction="right"><p style="color: white;" >Tm# ?"Ie</p></marquee>
+			<marquee scrollamount="55"><p >연산ㅈGA?</p></marquee>
+			<marquee scrollamount="35"><p style="font-size:20pt;">독버?ㄸ></p></marquee>
+			<marquee scrollamount="27"direction="right"><p>He엜i;?슭</p></marquee>
+			<marquee scrollamount="35"><p>현대인</p></marquee>
+			<marquee scrollamount="50"><p>간ㅅ?&e</p></marquee>
+
+			<marquee scrollamount="25"><p style=" font-size:18pt; color: white;">?t 땳? }</p></marquee>
+			<marquee scrollamount="50"><p style="font-size: 15pt;">살땐 이뻣</p></marquee>
+			<marquee scrollamount="45"><p>옷가게 옷</p></marquee>
+			<marquee scrollamount="40" direction="right"><p>?^{?김생`</p></marquee>
+			<marquee scrollamount="60"><p style="font-size:22pt;">악Q[]?    영향</p></marquee>
+			<marquee scrollamount="50"><p>ⓖ 래?>픽</p></marquee>
+			<marquee scrollamount="35"direction="right"><p style="font-size:15pt; color: white;">C쭋?추$이</p></marquee>
+			<marquee scrollamount="25"><p>난??E도</p></marquee>
+		</div>
+		<div class="d4-1">
+			<div class="bug1">
+				<img src="bug1.png" style="width: 500px;">
+			</div>
+			<div class="bc4-1">
+				 <h2><span style="background-color: #00ff00;">"분명 이 방향으로<br>꽂았었는데..."</span></h2>
+				<p>Usb를 사용하다보면 한번에 꽂히지 않은 적이 자주 있었나요? 그럼 바로 이 녀석, <span style="color: white;">/물리엔진 버그/</span> 떄문입니다. 지구 2.1의 물리엔진에 큰 충격을 주어 x,y,z 축의 방향을 흔들어 놓고 가죠.</p>
+				<img src="chart1.png" style="width:350px">
+			</div>
+		</div>
+		<div class="d4-2">
+			<div class="bug2">
+				<img src="bug2.png" style="width: 580px;">
+			</div>
+			<div class="bc4-2">
+				<h2><span style="background-color: #00ff00;">"왜 이렇게 시간이<br>안 흐르지?"</span></h2>
+				<p>헬스장 가서 운동할 때, 학교에서 수업을 들을 때, 회사에서 일을 할때 많이 마주치는 이 녀셕의 이름은 <span style="color: white;">/연산자 버그/</span> 입니다. time 함수 코드를 어지럽히고 가는 녀셕으로 현대인들의 삶에 고난을 불러일으키는 아주 악독한녀석이죠.</p>
+				<img src="chart2.png" style="width:350px">
+			</div>
+		</div>
+		<div class="d4-3">
+			<div class="bug3">
+				<img src="bug3.png" style="width: 580px;">
+			</div>
+			<div class="bc4-3">
+				<h2><span style="background-color: #00ff00;">"살 땐<br>이뻤었는데..."</span></h2>
+				<p>분명 옷 가게에서 입었을 땐 이뻤던 옷을 집에 가서 입었을 때 별로인 경우 다들 있을겁니다. 이는 바로 <span style="color: white;">/그래픽버그/</span> 때문입니다. 생김새는 아름답지만 여러분의 소비생활에 악영향을 끼치는 녀석이니 주의해주세요.</p>
+				<img src="chart3.png" style="width:350px">
+			</div>
+		</div>
+
+		<div class="d4-4">
+			<p>> 이외에도 버그는 차고 넘칩니다.</p>
+		</div>
+		<div class="closeuplist">
+			<img src="closeup1.png" class="closeup1">
+			<img src="closeup2.png" class="closeup2">
+			<img src="closeup3.png" class="closeup3">
+			<img src="closeup4.png" class="closeup4">
+		</div>
+
+		<div class="d4-4">
+			<p>> 그러나 이걸 본 당신은 이제 안전합니다.</p>
+			<p>> 왜냐하면</p>
+			<p>.</p>
+			<p>.</p>
+			<p>.</p>
+		</div>
+	</section>
+
+	<section class="s5" id="3">
+		<div class="d5">
+			<p style="color: white; font-size: 80pt; margin: 0">Debugging Kit</p>
+			<p>저희는 이러한 지구 2.1의 유저분들을 괴롭히는 각종 버그들을 인지해왔고 이를 없앨 수 있는 방안을<br> 지난 50년간 연구해왔습니다.</p>
+			<p>이런 저희의 노력이 전부 담긴 버그퇴치키트 <span style="color: white;">/디버깅 키트/</span>를 소개합니다.</p>
+		</div>
+	</section>
+
+
+
+
+
+	<section class="s6" >
+
+		<div class="d6-1">
+			<h4>A. 버그퇴치세트</h4>
+			<p>버그퇴치세트에는 언제 어디서든, 어떤 상황에서든 버그를 마주쳐도 퇴치할 수 있는 알찬 구성품으로 이루어져 있습니다.</p>
+			<div class="bc6-1">
+				<img src="kit1.png" class="kit1">
+				<img src="kit2.png" class="kit2">
+				<img src="kit3.png" class="kit3">
+				<div class="kit1-c"><p>외출 시에도</p><h5>버그 퇴치 스프레이</h5></div>
+				<div class="kit2-c"><p>집에서도</p><h5>버그 퇴치 향</h5></div>
+				<div class="kit3-c"><p>항상 내 곁에</p><h5>버그 퇴치 팔찌</h5></div>
+			</div>
+		</div>
+		<div class="d6-2">
+			<div class="bc6-2">
+				<h4>B. 5회 출장 서비스 케어</h4>
+				<p>키트만으로 해결이 어려울 시 이용가능한 저희가 직접 방문하는 5회 출장 케어 서비스를 제공합니다. 10년 이상 버그 퇴치를 해오신 전문 인력들이 여러분을 위해 언제든 찾아가겠습니다.</p>
+				<p style="font-size: 14pt; margin-top: 50px;">약력<br>
+					> 한국버그퇴치협회장 (15.8.~ 현재)<br>
+					> 대통령직속 버그 퇴치 위원장(20.1.~ 21.6.)<br>
+					> 서울과기대 버그학 교수(17.7.~ 20.2.)<br>
+					> 한국버그퇴치 자문 위원장(20.7. ~ 현재)<br>
+					> 유엔 버그퇴치국 소속(21.12.~ 현재)</p>
+			</div>
+			<div class="cesco">
+				<img src="cesco.png" style="width:400px">
+			</div>
+		</div>
+
+		<div class="d6-3">
+			<h4>Review</h4>
+			<marquee scrollamount="40">
+			<div class="bc6-3">
+				<div class="r1"><p>"2022년 올 한해 최고로 잘 한 선택"</p></div>
+				<div class="r2"><p>"키트 하나로 모든걸 해결할 수 있어서 좋았습니다." </p></div>
+				<div class="r3"><p>"서비스 오시는 분 실력이 미쳤어요!" </p></div>
+				<div class="r4"><p>"가성비, 품질 뭐 하나 빠지는게 없네요 추천!!"</p></div>
+				<div class="r5"><p>"디버깅 키트 없는 삶은 상상할 수 없네요.." </p></div>
+			</div>
+		</marquee>
+	</section>
+
+
+	<section class="s7" id="4">
+		<div class="d7">
+			<p>전 세계 여러분의 평안한 삶을 위해</p>
+			<p style="color: white; font-size: 80pt; margin: 0">Debugging Kit</p>
+		</div>
+	</section>
+
+	<section class="s8">
+		<div class="d8">
+		
+			<p >Copyright ⓒ 2022 Kim Jihyeon All rights reserved. </p>
+		
+		</div>
+	</section>
+
+
+
+</body>
+</html>
